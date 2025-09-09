@@ -1,0 +1,39 @@
+🚀 Challenge Day-2: Temporary User Management in Linux
+
+Today, I solved a real-world sysadmin task as part of my KodeKloud challenge journey. The scenario was simple yet highly practical:
+
+
+TASKS:
+🔹 A developer named kareem required temporary access to App Server 2 in the Stratos Datacenter.
+ 🔹 The access should be granted only until 2024-04-15.
+ 🔹 As per best practices, the username had to be created in lowercase.
+
+✅ Steps I followed:
+1️⃣ Logged into App Server 2 using SSH.
+>>>>ssh steve@stapp02
+2️⃣ Became root user and used the useradd command with an expiry date flag:
+>>>sudo useradd -m -s /bin/bash -e 2024-04-15 kareem.
+
+     -m → creates /home/kareem
+    -s /bin/bash → sets Bash as his default login shell.
+
+3️⃣ Verified the account expiry with:
+
+     >>>>>sudo chage -1 kareem.
+
+4️⃣ Confirmed the home directory and shell were correctly assigned.
+
+
+
+💡 Key Learnings:
+
+Account Expiry vs Password Expiry:
+ Account expiry completely disables the user after the date, while password expiry just forces a password reset.
+
+System vs Normal Users:
+ Always check /etc/passwd and UIDs to distinguish service accounts from real login users.
+
+Best Practice:
+ Creating temporary accounts with expiry is a safer way to manage short-term access and reduces security risks.
+
+These tasks are very interesting and I’m enjoying how these challenges make me think like a real engineer, one step at a time.
