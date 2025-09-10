@@ -1,0 +1,48 @@
+🚀 Day 3 of My DevOps Journey: Securing Servers by Disabling Root SSH Login
+
+hey all. this one is interesting when I'm solving  
+
+Task:
+
+"Your task is to disable direct SSH root login on all app servers within the Stratos Datacenter."
+
+Before the deep dive, it needs to be understood why to disable direct SSH root login on the server. 
+
+In many servers, the root account comes with unlimited power — the ability to install, modify, or even break the system with a single command. While that power is useful, it’s also a huge risk if left open for direct SSH login. Imagine a hacker gaining root access directly — it’s like giving them the keys to your house and the security system password at the same time.
+
+So no other choice we have to lock it :
+
+Our goal was to disable direct SSH login for the root user on the server, and users must log in with their own user accounts.
+
+it helps:--
+
+>>>Every action is traceable (we know who did what).
+>>>>It reduces the attack surface for hackers.
+>>>>>It enforces the principle of least privilege.
+
+✅ Steps I followed:
+   👉 1️⃣ Logged into Server  using SSH.
+        >>>> e.g  ssh steve@stapp01  (sever)
+
+    👉2️⃣  became root user and configure the sshd_config  Demoan file from  yes to no. this can be done by maually vi and vim. aslo but i did with automated streameditor.
+
+>>>>sudo sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+
+     👉3️⃣  then restarted the server for update of the file. it is mandatory 
+
+>>>>sudo systemctl restart sshd.
+
+After this i tried to login with ssh. im not able to login.
+
+
+
+Thank you for KodeKloud for making a such great platform to practice Devops real time tasks. Sagar Utekar always motivate and inspires me to be consist on learnings.
+
+
+#DevOps #Linux #SSH #Security #LearningInPublic #100DaysOfDevOps
+
+https://lnkd.in/gKtxeCzB
+
+
+
+https://lnkd.in/gKtxeCzB
