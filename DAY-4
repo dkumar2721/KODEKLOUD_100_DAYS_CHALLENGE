@@ -1,0 +1,55 @@
+🚀 Day 4 of My DevOps Journey:  🚀 file permission to specific file.
+
+task:
+Your task is  to grant executable permissions to the /tmp/xfusioncorp.sh script on App Server 3. Additionally, ensure that all users have the capability to execute it. 
+
+DevOps 100 days-challenge:-
+
+https://lnkd.in/dbe6kpiw
+
+Why do we need to grant executable permission?
+ ✅ Security control – Not every file should be executable; this prevents accidental or malicious runs.
+ ✅ Role separation – Developers may edit a script, while operators only need to execute it.
+ ✅ Flexibility – You can still run scripts with bash script.sh without +x, but giving execute permission
+    
+
+
+
+Steps involved:
+
+  👉 1️⃣   first logged in using SSH
+>>>>>ssh banner@stapp03 (server)
+
+ 👉2️⃣  became a root user and changed the file executable permission.
+.>>>>> sudo chmod 755 /tmp/xfusioncorp.sh
+
+To check its CORRECT:
+               >>>> ls -l /tmp/xfusioncorp.sh
+
+its show the permission, details  and type of files 
+
+here are  the breaks down:
+
+there are 3 file permissions 
+     >>1) read---r  =4
+     >>2 ) write--w  =2
+     >> 3) execute---x   =1.
+
+Linux permissions are split into three classes:
+Owner (u) — the file’s owner.
+Group (g) — users in the file’s group.
+Others (o) — everyone else.
+
+chmod  u-g-o  ( this are the patterns )----this command is used for file permission.
+
+so , Oue need is everyone can execute the file , but owner should all permission and rest all should execute permission.
+
+so, chmod   U(r=4,w=2,x=1)  g(r=2,w=0,x=1) o(r=2,w=0,x=1)
+
+here we got ,
+ chmod 755 file_path  (THIS STATISFY THE ASSIGNED TASK. ensure that all users have the capability to execute it. ).
+
+i'm so grateful i have done my day_4
+KodeKloud Sagar Utekar Abhishek Veeramalla Chetan Mohod
+
+#KodeKloud #DevOps #Linux #LearningByDoing #100DaysOfDevOps
