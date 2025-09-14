@@ -1,0 +1,102 @@
+🚀Day 5:  SElinux Installation and Configuration 🚀
+
+
+
+TASK:
+
+Following a security audit, the xFusionCorp Industries security team has opted to enhance application and server security with SELinux. To initiate testing, the following requirements have been established for App server 1 in the Stratos Datacenter:  
+
+
+
+Install the required SELinux packages. Permanently disable SELinux for the time being; it will be re-enabled after necessary configuration changes. No need to reboot the server, as a scheduled maintenance reboot is already planned for tonight. Disregard the current status of SELinux via the command line; the final status after the reboot should be disabled. 
+
+
+
+this is a scenario i had. 
+
+
+
+Why it is  needed?
+
+Security audit flagged gaps → so SELinux is being introduced for hardened security.
+
+But, instead of enforcing it immediately (which could break running apps if not configured), they’re:
+
+Installing SELinux now → getting ready.
+
+Disabling it temporarily → ensuring applications run smoothly.
+
+Planning re-enable after configs → once correct SELinux policies are applied.
+
+
+
+
+
+Why is this needed?
+
+Security audit flagged gaps → so SELinux is being introduced for hardened security.     
+
+But, instead of enforcing it immediately (which could break running apps if not configured), they’re:
+
+    1. Installing SELinux now → getting ready.
+
+    2. Disabling it temporarily → ensuring applications run smoothly.
+
+    3.  Planning re-enable after configs → once correct SELinux policies are        
+
+       applied.
+
+
+
+Steps involved:
+
+ 👉 1️⃣   log into App server 1 in the Stratos Datacenter:  
+
+  >>>> ssh tony@stapp01
+
+
+
+👉2️⃣ install the application :
+
+>>>>sudo yum install selinux-policy selinux-policy-targeted -y
+
+
+
+👉3️⃣ AFTER installing configure the file to disable function.
+
+>>> sudo vi etc/selinux/config
+
+   after this :  
+
+         SELINUX=disabled  (EDITED this changed from enforced to disabled )
+
+  saved and closed the file.
+
+
+
+👉4️⃣ once again reverified config file;
+
+  >>>>cat /etc/selinux/config
+
+      it should be  [ SELINUX=disabled ] like this .
+
+
+
+after rebooting selinux will be disabled.
+
+
+
+👉 This is a safe rollout strategy:
+
+Install now → prepare system.
+
+Disable temporarily → avoid disruptions.
+
+Enable later with proper policies → achieve stronger security.
+
+
+
+#Linux #Security #SELinux #DevOps #LearningJourney #KodeKloud
+
+KodeKloud Sagar Utekar Abhishek Veeramalla Chetan Mohod Shubham Londhe
+
