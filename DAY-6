@@ -1,0 +1,85 @@
+Day 6 of My journey --create a Cron job to execute a task at a scheduled time and task
+
+TASK:
+ The Nautilus system admins team has prepared scripts to automate several day-to-day tasks. They want them to be deployed on all app servers in Stratos DC on a set schedule. Before that they need to test similar functionality with a sample cron job. Therefore, perform the steps below: 
+a. Install cronie package on all Nautilus app servers and start crond service. 
+b. Add a cron */5 * * * * echo hello > /tmp/cron_text for root user. 
+
+Step taken:
+
+1) SSH TO ALL APP SERVERS AND INSTALL THE CRON JOB PACKAGE:
+
+>>># Install cronie
+sudo yum install cronie -y
+
+# Enable and start crond service
+>>>sudo systemctl enable crond
+>>>sudo systemctl start crond
+
+# Verify status
+>>>systemctl status crond
+ then:
+ Beacame a root user and try to create a cron job.
+ >>>sudo su -
+ >>> crontab -e
+>>>*/5 * * * * echo hello > /tmp/cron_text [add this editor ]
+
+after 10 -15 mins :
+ as we schdule the cron job will start.
+ to check:
+
+>>>cat /tmp/cron_text
+
+Confirm cron job is listed:
+ >>>crontab -l
+
+THIS PROCESS CAN BE DONE ANOTHER EASY METHOD BY USING ANSIBLE:
+
+CREATE A INVENTORY AND ADD ALL IP IDs AND PASSWORDS .
+CREATE A ANSIBLE PLAYBOOK TO DO TASK IN ALL SERVER IPs.
+
+inventory file.
+[app_servers]
+stapp01 ansible_host=172.16.238.10 ansible_user=tony ansible_password=Ir0nM@n
+stapp02 ansible_host=172.16.238.11 ansible_user=steve ansible_password=Am3ric@
+stapp03 ansible_host=172.16.238.12 ansible_user=banner ansible_password=BigGr33n
+
+
+ansible playbook:
+
+---
+- name: Setup cronie and cron job on Nautilus app servers
+  hosts: app_servers
+  become: true
+
+  tasks:
+    - name: Install cronie
+      yum:
+        name: cronie
+        state: present
+
+    - name: Ensure crond service is running and enabled
+      service:
+        name: crond
+        state: started
+        enabled: true
+
+    - name: Add cron job for root user
+      cron:
+        name: "Echo hello every 5 minutes"
+        minute: "*/5"
+        job: "echo hello > /tmp/cron_text"
+        user: root
+
+then i did:
+
+ansible-playbook -i inventory.ini cron_setup.yml
+
+
+
+
+
+hashtag
+
+hashtag#Linux hashtag#Security hashtag#SELinux hashtag#DevOps hashtag#LearningJourney 
+KodeKloud Sagar Utekar Abhishek Veeramalla Chetan Mohod
