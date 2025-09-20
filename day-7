@@ -1,0 +1,53 @@
+DAY_7 of  MY DEVOPS JOURNEY WITH REALTIME TASK with KODEKLOUD🚀
+
+TASK:
+The system admins team of xFusionCorp Industries has set up some scripts on jump host that run on regular intervals and perform operations on all app servers in Stratos Datacenter. To make these scripts work properly we need to make sure the thor user on jump host has password-less SSH access to all app servers through their respective sudo users (i.e tony for app server 1). Based on the requirements, perform the following:
+
+1) Set up a password-less authentication from user thor on jump host to all app servers through their respective sudo users.
+
+WHY IS IT NEEDED:
+
+Let’s take a real-world scenario:
+ Imagine you need to install an application on 50 servers.
+🔑 Without password-less SSH → you’d have to log in to each server one by one and enter credentials manually. This is time-consuming and error-prone.
+🚀 With password-less SSH → you can automate the entire process, run commands across all servers at once, and complete the task in minutes.
+That’s why password-less SSH is not just about convenience — it’s about efficiency, security, and scalability in managing infrastructure.
+
+steps taken:
+
+1>>>>generated SSH key pair:
+
+..>>..>> ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
+
+
+-t rsa → key type
+-b 4096 → key length ( -b  --binary) using we can make more secure
+-f ~/.ssh/id_rsa → file path
+-N "" → no passphrase
+
+i used default values, didn't use any file or phrase. so it will store in default  path.
+
+This creates:
+/home/thor/.ssh/id_rsa → private key
+/home/thor/.ssh/id_rsa.pub → public key
+
+STEP-2:
+      COPY THE PUBLIC KEY  and paste it into the authorized keys destination server. (after ssh-keygen in remote server )
+
+this can be done by :
+
+>>>> ssh-copy-id -i ~/.ssh/id_rsa.pub tony@app01( server )
+
+this comment copy the key pair from master server and past the key pairs in worker server (~/.ssh/authorized_keys)
+
+Now we ready to   SSH without credentials.
+
+
+#DevOps #KodeKloud #SSH #Linux #LearningJourney #Day7
+KodeKloud Sagar Utekar Abhishek Veeramalla Vijin Palazhi Chetan Mohod
+
+
+
+
+
+Comment
