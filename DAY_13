@@ -1,0 +1,69 @@
+DAY-13 of REALTIME DEVOPS CHALLENGES with KodeKloud
+
+
+
+TASK:
+
+
+
+We have one of our websites up and running on our Nautilus infrastructure in Stratos DC. Our security team has raised a concern that right now Apache’s port i.e 6200 is open for all since there is no firewall installed on these hosts. So we have decided to add some security layer for these hosts and after discussions and recommendations we have come up with the following requirements:
+
+
+
+1) Install iptables and all its dependencies on each app host.
+
+
+
+2)Block incoming port 6200 on all apps for everyone except for LBR host.
+
+
+
+3) Make sure the rules remain, even after system reboot.
+
+
+
+lets breakup what happening in STratos  DataCentre
+
+
+
+Today, I tackled a critical security task in the Stratos DC 
+
+
+
+❌ Problem: Apache was running on port 6200 — open to the entire internet!
+
+
+
+what we should:
+
+   ✅ Goal: Allow only the Load Balancer (LBR) to access it. Block everyone else — even after reboot.
+
+
+
+step-1:   
+
+   Installed and configured iptables on all 3 app servers (stapp01, stapp02, stapp03).
+
+
+
+step 2 :
+
+configured iptables rules:
+
+>>>>>✅ Allow port 6200 only from LBR IP (172.16.238.14)
+
+  >>>>>🚫 DROP all other traffic to port 6200
+
+    >>>>>✅ Kept SSH (22) and loopback traffic safe (no lockouts!)
+
+
+
+step 3:
+
+>>>  Made rules persistent using iptables-save + systemctl enable iptables
+
+>>>Disabled firewalld to avoid conflicts
+
+
+
+#DevOps #Linux #Firewall #iptables #Security #SysAdmin #Networking #KodeKloud #LearnInPublic #100DaysOfCloud #BeginnerToPro #InfrastructureAsCode 
